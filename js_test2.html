@@ -1,0 +1,53 @@
+<canvas id="my_canvas">
+</canvas>
+
+<script>
+
+function my_circle(cxt,x,y,r,col) {
+  cxt.beginPath();
+  cxt.arc(x,y,r,0,2*Math.PI);
+  cxt.fillStyle = col;
+  cxt.fill();
+}
+
+function random_colour() {
+  return `rgb(
+        ${Math.floor(Math.random()*256)},
+        ${Math.floor(Math.random()*256)},
+        ${Math.floor(Math.random()*256)})`;
+}
+
+function descending_random(n) {
+  const x = [];
+  for(let i=0; i<n; i++) {
+    x.push(Math.random());
+  }
+  x.sort(function(a, b){return b - a});
+  return x;
+}
+
+let a=document.getElementById('my_canvas');
+let b=a.getContext('2d');
+
+a.width=window.innerWidth * 0.97;
+a.height=window.innerHeight * 0.97;
+
+let cx=window.innerWidth/2;
+let cy=window.innerHeight/2;
+
+let rr0=Math.min(cx,cy)*0.9;
+
+z=descending_random(30);
+
+for(let j=0; j<z.length; j++) {
+  let rr = rr0*z[j];
+  cx=Math.random()*a.width;
+  cy=Math.random()*a.height;
+
+  x=descending_random(10);
+  for(let i=0; i<x.length; i++) {
+    my_circle(b,cx,cy,rr*x[i],random_colour());
+  }
+}
+
+</script>
